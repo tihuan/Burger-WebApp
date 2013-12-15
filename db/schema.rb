@@ -76,7 +76,6 @@ ActiveRecord::Schema.define(version: 20131213023309) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "paths"
-    t.string   "direction"
     t.string   "directions"
     t.string   "commands"
     t.string   "scanresults"
