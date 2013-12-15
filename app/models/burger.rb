@@ -85,7 +85,7 @@ validate :total_less_than_4
 			errors.add(:base, "Onions can only be up to 4 in total. Currently there are #{@sumonions} onions.") if sumonions.to_i > 4
 	end
 
-Burger.load
+#Burger.load
 end
 
 private
