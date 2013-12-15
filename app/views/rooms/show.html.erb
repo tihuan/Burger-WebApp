@@ -1,0 +1,26 @@
+<p>
+	<strong>Room Name:</strong>
+	<%= @room.name %>
+</p>
+
+<p>
+	<strong>Description:</strong>
+	<%= @room.description %>
+</p>
+
+<p>
+	<strong>Paths:</strong>
+	<%= @room.paths %>
+</p>
+
+<p>
+	<strong>Commands:</strong>
+	<%= @room.commands %>
+</p>
+
+<%= render 'scan' %>
+
+<%= render 'action' %>
+
+<%= link_to 'Back', rooms_path %>
+<%= link_to 'Edit', edit_room_path(@room) %>

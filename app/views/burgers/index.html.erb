@@ -1,0 +1,27 @@
+<h1>Burger List</h1>
+
+<%= link_to "Create New Burger", new_burger_path %>
+
+<table border="1">
+	<tr>
+		<th>ID</th>
+		<th>Burger Name</th>
+		<th>Description</th>
+		<th colspan="3">Actions</th>
+	</tr>
+
+	<% @burgers.each do |burger| %>
+		<tr>
+			<td><%= link_to burger.id, burger %></td>
+			<td><%= link_to burger.id, burger %></td>
+			<td><%= burger.buns %></td>
+			<td><%= burger.patties %></td>
+			<td><%= burger.cheese %></td>
+			<td><%= burger.onions %></td>
+			<td><%= link_to 'View Burger', burger %></td>
+			<td><%= link_to 'Edit', edit_burger_path(burger) %></td>
+			<td><%= link_to 'Delete Burger', burger_path(burger), method: :delete, data: {confirm: 'Are you sure?'} %></td>
+		</tr>
+	<% end %>
+	
+</table>

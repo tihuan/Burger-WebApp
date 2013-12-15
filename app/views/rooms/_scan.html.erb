@@ -1,0 +1,23 @@
+<%= form_for @room do |f| %>
+
+	<p>
+		<%= f.label :commands %><br>
+		<%= f.text_field :commands%>
+	</p>
+
+	<% @room.scan(@room.commands) %>
+
+	<p>
+		<strong>Scan Results:</strong>
+		<%= @room.scanresults %>
+	</p>
+
+	<p>
+		<%= f.submit %>
+	</p>
+
+<% end %>
+
+
+
+

@@ -1,0 +1,20 @@
+<% begin %>
+	<% path = @room.paths.split %>
+	<% path.each do |p| %>
+		<p>
+			<%= link_to p, p %>
+		</p>
+	<% end %>
+	
+<% rescue %>
+<% end %>
+
+<% begin %>
+	<% direction = eval(@room.directions) %>
+	<% direction.each do |dk, dv| %>
+		<p>
+			<%= link_to dk, dv %>
+		</p>
+	<% end %>
+<% rescue %>
+<% end %>

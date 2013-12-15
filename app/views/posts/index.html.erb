@@ -1,0 +1,23 @@
+<h1>Listing posts</h1>
+
+<%= link_to "New Post", new_post_path %>
+<%= link_to "User Input", 'input' %>
+
+<table border="1">
+	<tr>
+		<th>Title</th>
+		<th>Text</th>
+		<th colspan="2">Actions</th>
+	</tr>
+
+	<% @posts.each do |post| %>
+		<tr>
+			<td><%= post.title %></td>
+			<td><%= link_to post.text, post_path(post) %></td>
+			<td><%= link_to 'Show', post %></td>
+			<td><%= link_to 'Edit', edit_post_path(post) %></td>
+			<td><%= link_to 'Delete', post_path(post), method: :delete, data: {confirm: 'Are you sure you want to delete this post?'} %></td>
+		</tr>
+	<% end %>
+	<td><%= Post.find_by(title: "TRY ME").title %></td>
+</table>
