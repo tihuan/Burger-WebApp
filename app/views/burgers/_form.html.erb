@@ -48,7 +48,7 @@
 	</p>
 
 	<p>
-		<h4><%= f.label 'Select Patties (up to 4 patties):' %></h4>
+		<h4><%= f.label 'Select Patties (total up to 4 patties per burger):' %></h4>
 		<%= f.label 'Original Fried' %> <%= f.select :normalbeef, options_for_select([["-Select-", ""], "1", "2", "3", "4"], :selected => @burger.normalbeef) %><br>
 		<%= f.label 'No Salt Fried' %> <%= f.select :nosaltbeef, options_for_select([["-Select-", ""], "1", "2", "3", "4"], :selected => @burger.nosaltbeef) %><br>
 		<%= f.label 'Heavy Mustard Fried' %> <%= f.select :heavymustardbeef, options_for_select([["-Select-", ""], "1", "2", "3", "4"], :selected => @burger.heavymustardbeef) %> <br>
@@ -57,13 +57,13 @@
 		
 
 	<p>
-		<h4><%= f.label 'Select Cheese (up to 4 slices):' %></h4>
+		<h4><%= f.label 'Select Cheese (total up to 4 slices per burger):' %></h4>
 		<%= f.label 'Melted Cheese' %> <%= f.select :meltcheese, options_for_select([["-Select-", ""], "1", "2", "3", "4"], :selected => @burger.meltcheese ) %><br>
 		<%= f.label 'Cold Cheese' %> <%= f.select :coldcheese, options_for_select([["-Select-", ""], "1", "2", "3", "4"], :selected => @burger.coldcheese) %>
 	</p>
 
 	<p>
-		<h4><%= f.label 'Customize onions here (up to 4 portions):' %></h4>
+		<h4><%= f.label 'Customize onions here (total up to 4 portions per burger):' %></h4>
 		<%= f.label 'Fresh Whole Onion' %> <%= f.select :rawwholeonions, options_for_select([["-Select-", ""], "1", "2", "3", "4"], :selected => @burger.rawwholeonions ) %><br>
 		<%= f.label 'Fresh Chopped Onion' %> <%= f.select :rawchoponions, options_for_select([["-Select-", ""], "1", "2", "3", "4"], :selected => @burger.rawchoponions) %><br>
 		<%= f.label 'Grilled Whole Onion' %> <%= f.select :grillwholeonions, options_for_select([["-Select-", ""], "1", "2", "3", "4"], :selected => @burger.grillwholeonions) %><br>
