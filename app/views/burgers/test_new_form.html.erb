@@ -1,0 +1,76 @@
+<head>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    
+    <script language='JavaScript'>
+      checked = false;
+      function checkedAll () {
+        if (checked == false){checked = true}else{checked = false}
+    	for (var i = 0; i < document.getElementById('myform').elements.length; i++) {
+      document.getElementById('myform').elements[i].checked = checked;
+      }
+      }
+	</script>
+
+	<script language='JavaScript'>
+    			function checkAnimal () {
+            	var values = ['1', '2', '4', '5'];
+            	jQuery("#list").find('[value=' + values.join('], [value=') + ']').prop("checked", jQuery("#checkAnimalCheckbox").prop("checked"));
+
+       			 } 
+    </script>
+
+    <script language='JavaScript'>
+    			function checkAnimal2 () {
+            	var values = ['1', '2', '4', '5'];
+            	jQuery("#list2").find('[value=' + values.join('], [value=') + ']').prop("checked", jQuery("#checkAnimalCheckbox2").prop("checked"));
+
+       			 } 
+    </script>
+
+    <script>
+    		function checkRadio () {
+    			jQuery("#radioform").find(value='2').prop("checked", jQuery("#checkRadioCheck").prop("checked"));
+    		}
+    </script>
+
+</head>
+
+<body>
+
+    <form id="myform">
+    Foo1<input type="checkbox" name="foo1"/>
+    Bar2<input type="checkbox" name="bar2"/>
+    Rah3<input type="checkbox" name="rah3"/>
+	Check all: <input type='checkbox' name='checkall' onclick='checkedAll()'>
+    </form>
+
+  	<form id='list'><br>
+    1<input type='checkbox' value='1' />
+    2<input type='checkbox' value='2' />
+    3<input type='checkbox' value='3' />
+    4<input type='checkbox' value='4' />
+    5<input type='checkbox' value='5' />
+    CheckAnimal<input type='checkbox' ID="checkAnimalCheckbox" name='checkanimal' onclick='checkAnimal()'><br>
+    </form>
+
+    <form id='list2'><br>
+    1<input type='checkbox' value='1' />
+    2<input type='checkbox' value='2' />
+    3<input type='checkbox' value='3' />
+    4<input type='checkbox' value='4' />
+    5<input type='checkbox' value='5' />
+    CheckAnimal<input type='checkbox' ID="checkAnimalCheckbox2" name='checkanimal' onclick='checkAnimal2()'><br>
+    </form>
+
+    <form id='radioform'><br>
+    1<input type='radio' value='1' />
+    2<input type='radio' value='2' />
+    3<input type='radio' value='3' />
+    4<input type='radio' value='4' />
+    5<input type='radio' value='5' />
+    CheckRadio<input type='checkbox' ID="checkRadioCheck" name='checkradio' onclick='checkRadio()'><br>
+    </form>
+
+
+</body>

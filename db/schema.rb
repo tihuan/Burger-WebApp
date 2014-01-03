@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131213023309) do
+ActiveRecord::Schema.define(version: 20140101212257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,18 @@ ActiveRecord::Schema.define(version: 20131213023309) do
     t.text     "condiments"
     t.text     "specialrequests"
     t.text     "animalstyle"
+    t.text     "result"
+    t.text     "code"
+    t.text     "frystyle"
+    t.text     "beefcount"
+    t.text     "cheesestyle"
+    t.text     "cheesecount"
+    t.text     "onionstyle"
+    t.text     "onioncount"
+    t.text     "onion1"
+    t.text     "onion2"
+    t.text     "onion3"
+    t.text     "onion4"
   end
 
   create_table "comments", force: true do |t|

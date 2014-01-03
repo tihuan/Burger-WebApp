@@ -1,11 +1,13 @@
 class BurgersController < ApplicationController
+before_filter :checkAnimal
 
 	def index
 		@burgers = Burger.all
 	end
 
 	def new
-		@burger = Burger.new
+		@burger = Burger.new(burger_params)
+
 	end
 
 	def edit
@@ -41,8 +43,13 @@ class BurgersController < ApplicationController
 		end
 	end
 
-	def animalstyle
-		animalstyle_burger = Burger.create(pickles:"Pickles", spread: "Extra Spread", grillwholeonions:"1", normalmustardbeef:"2" )
+	def checkAnimal
+		@burger = Burger.new
+		animal = {onion1:"GR",frystyle:"mfd",spread:"X S",pickles:"P"}
+
+		if params[:animalstyle] =="1"
+			burger_params.merge(pickles:"P")
+		end
 	end
 
 
@@ -56,7 +63,9 @@ class BurgersController < ApplicationController
 			:normalmustardbeef, :normalbeef, :nosaltbeef, :meltcheese, :coldcheese,
 			:rawwholeonions, :rawchoponions, :grillwholeonions, :grillchoponions, 
 			:sumbeef, :sumcheese, :sumonions, :spread, :mustard, :ketchup, :extrasalt,
-			:pickles, :chopchillies, :condiments, :specialrequests, :animalstyle)
+			:pickles, :chopchillies, :condiments, :specialrequests, :animalstyle, 
+			:result, :code, :frystyle, :beefcount, :cheesestyle, :cheesecount, :onionstyle, 
+			:onioncount, :onion1, :onion2, :onion3, :onion4)
 	end
 
 

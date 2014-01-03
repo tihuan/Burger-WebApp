@@ -1,6 +1,17 @@
 <h1>Burger List</h1>
 
-<h3><%= link_to "Create New Burger", new_burger_path %></h3>
+<%= check_box_tag 'animalstyle' %>Animal Style?
+
+
+<h3><%= link_to "Create Custom Burger", new_burger_path(burger:{buns:""}) %></h3>
+
+<h3><%= link_to "Create Veggie Burger", new_burger_path(:burger=>{buns:" ",lettuce:"L",tomatoes:"T",spread:"S"}, :buns => ("no_toast" if :animalstyle == "1")) %></h3>
+
+<h3><%= link_to "Create Hamburger", new_burger_path(:burger=>{buns:" ", cooklevel:" ",frystyle:" ",beefcount:"1",lettuce:"L",tomatoes:"T",spread:"S"}, :buns => ("no_toast" if :animalstyle == "1")) %></h3>
+
+<h3><%= link_to "Create Cheeseburger", new_burger_path(:burger=>{buns:" ", cooklevel:" ",frystyle:" ",beefcount:"1",cheesestyle:"meltcheese",cheesecount:"1",lettuce:"L",tomatoes:"T",spread:"S"}, :buns => ("no_toast" if :animalstyle == "1")) %></h3>
+
+<h3><%= link_to "Create Double Double Burger", new_burger_path(:burger=>{buns:"", cooklevel:" ",frystyle:" ",beefcount:"2",cheesestyle:"meltcheese",cheesecount:"2",lettuce:"L",tomatoes:"T",spread:"S"}, :buns => ("no_toast" if :animalstyle == "1")) %></h3>
 
 <table border="1">
 	<tr>
@@ -11,13 +22,11 @@
 	</tr>
 
 	<% @burgers.each do |burger| %>
+	<% burger.countcode %>
 		<tr>
 			<td><%= link_to burger.id, burger %></td>
 			<td><%= link_to burger.id, burger %></td>
-			<td><%= burger.buns %></td>
-			<td><%= burger.patties %></td>
-			<td><%= burger.cheese %></td>
-			<td><%= burger.onions %></td>
+			<td><%= burger.code %></td>
 			<td><%= link_to 'View Burger', burger %></td>
 			<td><%= link_to 'Edit', edit_burger_path(burger) %></td>
 			<td><%= link_to 'Delete Burger', burger_path(burger), method: :delete, data: {confirm: 'Are you sure?'} %></td>

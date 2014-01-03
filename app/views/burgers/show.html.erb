@@ -3,7 +3,7 @@
 	<%= @burger.id %>
 </p>
 
-<% @burger.countspecialrequests %>
+<$ @burger.countspecialrequests %>
 <p>
 	<strong>Special Request:</strong>
 	<%= @burger.specialrequests %>
@@ -19,31 +19,39 @@
 	<%= @burger.cooklevel %>
 </p>
 
-<% @burger.countpatties %>
+<$ @burger.countpatties %>
 <p>
 	<strong>Patties:</strong> 
 	<%= @burger.patties %>
 </p>
 
-<% @burger.countcheese %>
+<$ @burger.countcheese %>
 <p>
 	<strong>Cheese:</strong> 
 	<%= @burger.cheese %>
 </p>
 
-<% @burger.countonions %>
+<$ @burger.countonions %>
 <p>
 	<strong>Onions:</strong>
 	<%= @burger.onions %>
 </p>
 
-<% @burger.counttomatoes %>
+<p>
+	<strong>Onion Options:</strong>
+	<%= @burger.onion1 %>
+	<%= @burger.onion2 %>
+	<%= @burger.onion3 %>
+	<%= @burger.onion4 %>
+</p>
+
+<$ @burger.counttomatoes %>
 <p>
 	<strong>Tomatoes:</strong>
 	<%= @burger.tomatoes %>
 </p>
 
-<% @burger.countlettuce %>
+<$ @burger.countlettuce %>
 <p>
 	<strong>Lettuce:</strong>
 	<%= @burger.lettuce %>
@@ -54,10 +62,22 @@
 	<%= @burger.spread %>
 </p>
 
-<% @burger.countcondiments %>
+<$ @burger.countcondiments %>
 <p>
 	<strong>Condiments:</strong>
 	<%= @burger.condiments %>
+</p>
+
+<$ @burger.countresult %>
+<p>
+	<strong>Result:</strong>
+	<%= @burger.result %>
+</p>
+
+<% @burger.countcode %>
+<p>
+	<strong>In-N-Out Code for your order:</strong>
+	<%= @burger.code %>
 </p>
 
 
