@@ -4,7 +4,7 @@ Gothonweb::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'welcome#index'
+   root 'burgers#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -14,13 +14,6 @@ Gothonweb::Application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-   resources :posts do 
-    resources :comments
-  end
-
-  resources :rooms
-  resources :innout
-  resources :subway
   resources :burgers
 
   # Example resource route with options:
