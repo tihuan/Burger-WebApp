@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140101212257) do
+ActiveRecord::Schema.define(version: 20141026204911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20140101212257) do
     t.text     "specialrequests"
     t.text     "animalstyle"
     t.text     "result"
-    t.text     "code"
+    t.string   "code",              default: ""
     t.text     "frystyle"
     t.text     "beefcount"
     t.text     "cheesestyle"

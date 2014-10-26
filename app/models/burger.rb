@@ -1,27 +1,43 @@
-class Burger < ActiveRecord::Base
+require 'pry'
 
+class Burger < ActiveRecord::Base
 include ActionView::Helpers::TextHelper
 attr_accessor :sumbeef, :sumcheese, :sumonions
 require 'set'
 
 	def self.load
+		default_burger = Burger.create(id:1, buns:"Extra Toasted") if Burger.where(id:1).empty?
+	end
 
-		if Burger.where(id:1).empty?
-
-			default_burger = Burger.create(id:1, buns:"Extra Toasted")
+	#Dealing with MxC
+	def beef_by_cheese
+		case "#{self.beefcount}x#{self.cheesecount}"
+		when "0x0"
+			self.code << "Veggie"
+		when "0x2"
+			self.code << "Grill Chz"
+		when "1x0"
+			self.code << "HAMB"
+		when "1x1"
+			self.code << "CHB"
+		when "2x0"
+			self.code << "Dbl MEAT"
+		when "2x2"
+			self.code << "DblDbl"
 		else
-
-		end
+			self.code << "#{self.beefcount}x#{self.cheesecount}"
+ 		end
 	end
 
 	def countcode
-		wordstring = "#{self.beefcount}x#{self.cheesecount},#{self.frystyle},#{self.cheesestyle},#{self.spread},#{self.pickles},#{self.buns},#{self.cooklevel},#{self.onion1},#{self.onion2},#{self.onion3},#{self.onion4}"
-		word = wordstring.split(",")
-		self.result = word.to_set
+		@word = %W(#{ self.beef_by_cheese } #{ self.frystyle } #{ self.cheesestyle }
+		          		     #{ self.spread } #{ self.pickles } #{ self.buns } #{ self.cooklevel }
+		          		     #{ self.onion1 } #{ self.onion2 } #{ self.onion3 } #{ self.onion4 }
+		          		)
 
-		self.code = []
+		self.result = @word.to_set
 
-		#Count Onion Options. Push Onions @line-143. Need to count onions here in case Anial style takes GR
+		#Count Onion Options. Push Onions @line-143. Need to count onions here in case Animal style takes GR
 		onions = ["#{self.onion1}","#{self.onion2}","#{self.onion3}","#{self.onion4}"]
 		raw = 0
 		chop = 0
@@ -34,27 +50,10 @@ require 'set'
 			gr += 1 if o == "GR"
 		end
 
-		#Dealing with MxC
-		if self.result.include? "0x0"
-			self.code << "Veggie"
-		elsif self.result.include? "0x2"
-			self.code << "Grill Chz"
-		elsif self.result.include? "1x0"
-			self.code << "HAMB"
-		elsif self.result.include? "1x1"
-			self.code << "CHB"
-		elsif self.result.include? "2x0"
-			self.code << "Dbl MEAT"
-		elsif self.result.include? "2x2"
-			self.code << "DblDbl"
-		else
-			self.code << "#{self.beefcount}x#{self.cheesecount}"
-		end
-
 		#Check Spread, Lettuce, Tomatoes. Push ">" if missing any.
 		lt = ["#{self.lettuce}","#{self.tomatoes}"]
 		if lt.include? ""
-			self.code << ">" 
+			self.code << ">"
 		elsif self.spread == "" and self.ketchup == "" and self.mustard == ""
 			self.code << ">"
 		else
@@ -63,7 +62,7 @@ require 'set'
 		#Dealing with Animal Style
 		animalstyle = Set["mfd","X S","P","GR"]
 		if animalstyle.subset? self.result
-			self.code << "Animal" 
+			self.code << "Animal"
 			gr -= 1
 		end
 
@@ -102,7 +101,7 @@ require 'set'
 		elsif whgr > 1
 			(whgr-1).times {self.code << "X WHGR"}
 		end
-	
+
 		#Dealing with Spread
 		if self.spread == "X S"
 			self.code << self.spread unless self.code.include? "Animal"
@@ -112,7 +111,7 @@ require 'set'
 		#Dealing with Lettuce
 		if self.lettuce == "X L"
 			self.code << self.lettuce unless self.code.include? "X L"
-		else 
+		else
 		end
 
 		#Dealing with Tomatoes
@@ -120,7 +119,7 @@ require 'set'
 			self.code << self.tomatoes unless self.code.include? "X T"
 		else
 		end
-				
+
 		#Dealing with pickles
 		self.code << "#{self.pickles}" if self.pickles != ""
 
@@ -147,16 +146,16 @@ require 'set'
 		self.code << "#{self.cooklevel}" if self.cooklevel != " "
 
 		#Dealing with buns request. Flying Dutchman needs special handling
-		if self.buns != "" and self.buns != "FLYING DUTCHMAN" 
-			self.code << "#{self.buns}" 
+		if self.buns != "" and self.buns != "FLYING DUTCHMAN"
+			self.code << "#{self.buns}"
 
 			#Dealing with Flying Dutchman when code includes irregular burgers: 2x1, 2x3, etc.
 		elsif self.buns == "FLYING DUTCHMAN" and self.code.include? "#{self.beefcount}x#{self.cheesecount}"
 			self.code.unshift("#{self.buns}")
 
 			#Dealing with Flying Dutchman when code includes regular burgers: HAMB, CHB, etc.
-		else 
-			self.code.unshift("#{self.beefcount}x#{self.cheesecount}") 
+		else
+			self.code.unshift("#{self.beefcount}x#{self.cheesecount}")
 			self.code.unshift("#{self.buns}")
 			#Get rid of "HAMB", "CHB", etc.
 			list = ["HAMB","CHB","Dbl MEAT","DblDbl"]
@@ -171,7 +170,7 @@ require 'set'
 		extra_everything = Set["X T","X L","X raw","X S","P","chillies"]
 		check_code = self.code.to_set
 		if extra_everything.subset? check_code
-			self.code.insert(1,"XE") 
+			self.code.insert(1,"XE")
 			self.code.delete('X T')
 			self.code.delete('X L')
 			self.code.delete('X raw')
@@ -196,7 +195,7 @@ require 'set'
 
 		#self.code = self.code.uniq
 		self.code = self.code*" "
-	
+
 	end
 
 #Burger.load

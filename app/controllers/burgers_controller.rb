@@ -1,5 +1,5 @@
 class BurgersController < ApplicationController
-before_filter :checkAnimal
+before_action :checkAnimal
 
 	def index
 		@burgers = Burger.all
@@ -52,22 +52,17 @@ before_filter :checkAnimal
 		end
 	end
 
-
-
-	private
+private
 
 	def burger_params
-		params.require(:burger).permit(:buns, :patties, 
-			:cheese, :onions, :tomatoes, :lettuce, :spreads, 
+		params.require(:burger).permit(:buns, :patties,
+			:cheese, :onions, :tomatoes, :lettuce, :spreads,
 			:others, :cutinhalf, :cooklevel, :heavymustardbeef,
 			:normalmustardbeef, :normalbeef, :nosaltbeef, :meltcheese, :coldcheese,
-			:rawwholeonions, :rawchoponions, :grillwholeonions, :grillchoponions, 
+			:rawwholeonions, :rawchoponions, :grillwholeonions, :grillchoponions,
 			:sumbeef, :sumcheese, :sumonions, :spread, :mustard, :ketchup, :extrasalt,
-			:pickles, :chopchillies, :condiments, :specialrequests, :animalstyle, 
-			:result, :code, :frystyle, :beefcount, :cheesestyle, :cheesecount, :onionstyle, 
+			:pickles, :chopchillies, :condiments, :specialrequests, :animalstyle,
+			:result, :code, :frystyle, :beefcount, :cheesestyle, :cheesecount, :onionstyle,
 			:onioncount, :onion1, :onion2, :onion3, :onion4)
 	end
-
-
-
 end
