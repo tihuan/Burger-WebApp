@@ -8,8 +8,8 @@ development:
   encoding: utf8
   database: pgproject_development
   pool: 5
-  username: postgres
-  password: 19880404
+  username: Thuang
+  password:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
@@ -18,13 +18,13 @@ test:
   encoding: utf8
   database: pgproject_test
   pool: 5
-  username: postgres
-  password: 19880404
+  username: Thuang
+  password:
 
 production:
   adapter: postgresql
   encoding: utf8
   database: pgproject_production
   pool: 5
-  username: postgres
-  password: 19880404
+  username: Thuang
+  password:
