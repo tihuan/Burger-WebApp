@@ -1,5 +1,5 @@
 class BurgersController < ApplicationController
-before_action :checkAnimal
+before_action :load_burger ,:check_animal
 
 	def index
 		@burgers = Burger.all
@@ -43,7 +43,13 @@ before_action :checkAnimal
 		end
 	end
 
-	def checkAnimal
+private
+
+	def load_burger
+		Burger.create(id:1, buns:"Extra Toasted") if Burger.where(id:1).empty?
+	end
+
+	def check_animal
 		@burger = Burger.new
 		animal = {onion1:"GR",frystyle:"mfd",spread:"X S",pickles:"P"}
 
@@ -51,8 +57,6 @@ before_action :checkAnimal
 			burger_params.merge(pickles:"P")
 		end
 	end
-
-private
 
 	def burger_params
 		params.require(:burger).permit(:buns, :patties,

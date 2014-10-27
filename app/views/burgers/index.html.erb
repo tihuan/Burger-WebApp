@@ -22,7 +22,7 @@
 	</tr>
 
 	<% @burgers.each do |burger| %>
-	<% burger.countcode %>
+	<% burger.count_code %>
 		<tr>
 			<td><%= link_to burger.id, burger %></td>
 			<td><%= link_to burger.id, burger %></td>
@@ -32,5 +32,5 @@
 			<td><%= link_to 'Delete Burger', burger_path(burger), method: :delete, data: {confirm: 'Are you sure?'} %></td>
 		</tr>
 	<% end %>
-	
+
 </table>
