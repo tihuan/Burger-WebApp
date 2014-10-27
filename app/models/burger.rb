@@ -9,51 +9,6 @@ require 'set'
 		Burger.create(id:1, buns:"Extra Toasted") if Burger.where(id:1).empty?
 	end
 
-	def count_onions
-		#Count Onion Options. Push Onions @line-143. Need to count onions here in case Animal style takes GR
-		onions = ["#{self.onion1}","#{self.onion2}","#{self.onion3}","#{self.onion4}"]
-		@raw = 0
-		@chop = 0
-		@whgr = 0
-		@gr = 0
-		onions.each do |o|
-			@raw += 1 if o == "O"
-			@chop += 1 if o == "ChopO"
-			@whgr += 1 if o == "WHGR"
-			@gr += 1 if o == "GR"
-		end
-
-		count_animal
-
-		if @raw == 0 and @chop == 0 and @gr == 0 and @whgr == 0
-			@code << "WO"
-		end
-
-		if @raw == 1
-			@code << "raw"
-		elsif @raw > 1
-			(@raw-1).times {@code << "X raw"}
-		end
-
-		if @chop == 1
-			@code << "chop"
-		elsif @chop > 1
-			(@chop-1).times {@code << "X chop"}
-		end
-
-		if @gr == 1
-			@code << "GR"
-		elsif @gr > 1
-			(@gr-1).times {@code << "X GR"}
-		end
-
-		if @whgr == 1
-			@code << "WHGR"
-		elsif @whgr > 1
-			(@whgr-1).times {@code << "X WHGR"}
-		end
-	end
-
 	def count_code
 		@code = []
 
@@ -175,9 +130,9 @@ require 'set'
 		#@code = @code.uniq
 		@code = @code*" "
 
-	self.code = @code.to_s
+		self.code = @code.to_s
 	end
-	#Burger.load
+
 private
 	#Dealing with MxC
 	def beef_by_cheese
@@ -196,6 +151,42 @@ private
 			@code << "DblDbl"
 		else
 			@code << "#{self.beefcount}x#{self.cheesecount}"
+ 		end
+ 	end
+
+ 	def count_onions
+ 		#Count Onion Options. Push Onions @line-143. Need to count onions here in case Animal style takes GR
+ 		onions = ["#{self.onion1}","#{self.onion2}","#{self.onion3}","#{self.onion4}"]
+ 		@raw = 0
+ 		@chop = 0
+ 		@whgr = 0
+ 		@gr = 0
+ 		onions.each do |o|
+ 			@raw += 1 if o == "O"
+ 			@chop += 1 if o == "ChopO"
+ 			@whgr += 1 if o == "WHGR"
+ 			@gr += 1 if o == "GR"
+ 		end
+ 		count_animal
+ 		onions_to_s
+ 	end
+
+ 	def onions_to_s
+ 		if @raw == 0 && @chop == 0 && @gr == 0 && @whgr == 0
+ 			@code << "WO"
+ 		else
+ 			push_onion(@raw, 'raw')
+ 			push_onion(@chop, 'chop')
+ 			push_onion(@gr, 'GR')
+ 			push_onion(@whgr, 'WHGR')
+ 		end
+ 	end
+
+ 	def push_onion(onion, onion_name)
+ 		if onion == 1
+ 			@code << "#{onion_name}"
+ 		elsif onion > 1
+ 			(onion - 1).times {@code << "X #{onion_name}"}
  		end
  	end
 
