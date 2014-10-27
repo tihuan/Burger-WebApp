@@ -11,74 +11,26 @@ require 'set'
 
 	def count_code
 		@code = []
-
 		@word = %W(#{ beef_by_cheese } #{ self.frystyle } #{ self.cheesestyle }
 		          		     #{ self.spread } #{ self.pickles } #{ self.buns } #{ self.cooklevel }
 		          		     #{ self.onion1 } #{ self.onion2 } #{ self.onion3 } #{ self.onion4 }
 		          		)
-
 		@result = @word.to_set
 
 		count_onions
-
-		#Check Spread, Lettuce, Tomatoes. Push ">" if missing any.
-		lt = ["#{self.lettuce}","#{self.tomatoes}"]
-		if lt.include? ""
-			@code << ">"
-		elsif self.spread == "" and self.ketchup == "" and self.mustard == ""
-			@code << ">"
-		else
-		end
-
-		#Dealing with Core Condiments IF ">" presents
-		if @code.include? ">"
-			@code << "#{self.spread}" if self.spread == "S"
-			@code << "#{self.lettuce}" if self.lettuce == "L"
-			@code << "#{self.tomatoes}" if self.tomatoes == "T"
-		end
-
-		#Dealing with Spread
-		if self.spread == "X S"
-			@code << self.spread unless @code.include? "Animal"
-		else
-		end
-
-		#Dealing with Lettuce
-		if self.lettuce == "X L"
-			@code << self.lettuce unless @code.include? "X L"
-		else
-		end
-
-		#Dealing with Tomatoes
-		if self.tomatoes == "X T"
-			@code << self.tomatoes unless @code.include? "X T"
-		else
-		end
-
-		#Dealing with pickles
-		@code << "#{self.pickles}" if self.pickles != ""
-
-		#Dealing with other requests
-		@code << "#{self.cheesestyle}" if self.cheesestyle == "Cold_cheese"
-		@code << "#{self.chopchillies}" if self.chopchillies != ""
-		@code << "#{self.extrasalt}" if self.extrasalt != ""
-		@code << "#{self.mustard}" if self.mustard != ""
-		@code << "#{self.ketchup}" if self.ketchup != ""
-		mustard_inst = (self.mustard != "" and self.spread == '')
-		ketchup_inst = (self.ketchup != "" and self.spread == '')
-		if @code.include? ">"
-		elsif mustard_inst or ketchup_inst
-			@code << "Inst"
-		end
-
-		# Dealing with Fry Style
-		@code << "#{self.frystyle}" if self.frystyle != " "
-
-		#Add "only" here. >> This is the end of condiments code <<
-		@code << "only" if @code.include? ">"
+		only_condiments_to_s
+		count_animal
+		onions_to_s
+		extra_condiments_to_s(self.spread, 'S')
+		extra_condiments_to_s(self.lettuce, 'L')
+		extra_condiments_to_s(self.tomatoes, 'T')
+		pickles_to_s
+		other_requests_to_s
+		frystyle_to_s
+		only_to_s
 
 		#Bun Request
-		@code << "#{self.cooklevel}" if self.cooklevel != " "
+		@code << "#{self.cooklevel}" if self.cooklevel != ' '
 
 		#Dealing with buns request. Flying Dutchman needs special handling
 		if self.buns != "" and self.buns != "FLYING DUTCHMAN"
@@ -121,16 +73,8 @@ require 'set'
 		@code.delete("WO") if @code.include? "only"
 
 		cleanup_after_animal
-		# #Clean up Animal Style Ingredients if "Animal" exists
-		# if @code.include? "Animal"
-		# 	@code.delete('mfd')
-		# 	@code.delete('X S')
-		# 	@code.delete('P')
-		# end
-		#@code = @code.uniq
-		@code = @code*" "
 
-		self.code = @code.to_s
+		self.code = @code.join(' ')
 	end
 
 private
@@ -167,8 +111,6 @@ private
  			@whgr += 1 if o == "WHGR"
  			@gr += 1 if o == "GR"
  		end
- 		count_animal
- 		onions_to_s
  	end
 
  	def onions_to_s
@@ -196,6 +138,77 @@ private
  		if animalstyle.subset? @result
  			@code << "Animal"
  			@gr -= 1
+ 		end
+ 	end
+
+ 	#Check Spread, Lettuce, Tomatoes. Push '>' if missing any.
+ 	def check_only_condiments
+ 		puts "lettuce_tomato"
+		p lettuce_tomato = ["#{self.lettuce}","#{self.tomatoes}"]
+		if lettuce_tomato.include? ''
+			@code << '>'
+		elsif self.spread == '' && self.ketchup == '' && self.mustard == ''
+			@code << '>'
+		end
+	end
+
+	#Dealing with Core Condiments IF '' presents
+	def only_condiments_to_s
+		puts "\n\n\n\nonly condiments?"
+		p @code
+		if check_only_condiments
+			@code << "#{self.spread}" if self.spread == 'S'
+			@code << "#{self.lettuce}" if self.lettuce == 'L'
+			@code << "#{self.tomatoes}" if self.tomatoes == 'T'
+			# marker to add 'only' at the end of the burger code
+			@code << ''
+		end
+	end
+
+	#Dealing with pickles
+	def pickles_to_s
+		@code << "#{self.pickles}" if self.pickles
+	end
+
+	def other_condiments_to_s(condiment)
+		@code << "#{condiment}" if condiment
+	end
+
+	#Dealing with other requests
+	def other_requests_to_s
+		@code << "#{self.cheesestyle}" if self.cheesestyle == 'Cold_cheese'
+		other_condiments_to_s(self.chopchillies)
+		other_condiments_to_s(self.extrasalt)
+		other_condiments_to_s(self.mustard)
+		other_condiments_to_s(self.ketchup)
+		mustard_inst = (self.mustard != '' && self.spread == '')
+		ketchup_inst = (self.ketchup != '' && self.spread == '')
+		if @code.include? ''
+		elsif mustard_inst || ketchup_inst
+			@code << "Inst"
+		end
+	end
+
+	# Dealing with Fry Style
+	def frystyle_to_s
+		@code << "#{self.frystyle}" if self.frystyle != ' '
+	end
+
+	#Add "only" here. >> This is the end of condiments code <<
+	def only_to_s
+		puts "\n\n\n What's @code?"
+		p @code
+		@code << 'only' if @code.include? ''
+	end
+
+ 	# Dealing with extra condiments
+ 	def extra_condiments_to_s(condiment, condiment_name)
+ 		if condiment == "X #{condiment_name}"
+ 			if condiment == 'X S'
+ 				@code << condiment unless @code.include? "Animal"
+ 			else
+ 				@code << condiment unless @code.include? condiment
+ 			end
  		end
  	end
 

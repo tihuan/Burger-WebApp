@@ -92,12 +92,12 @@
 
 	<p>
 	<h4><%= f.label 'Add Lettuce Here:' %></h4>
-		<%= f.label 'Fresh Lettuce' %> <%= f.select :lettuce, options_for_select([["-Select-", ""],["Normal","L"], ["Extra","X L"]], :selected => @burger.lettuce ) %>
+		<%= f.label 'Fresh Lettuce' %> <%= f.select :lettuce, options_for_select([["-Select-", nil],["Normal","L"], ["Extra","X L"]], :selected => @burger.lettuce ) %>
 	</p>
 
 	<p>
 	<h4><%= f.label 'Tomatoes, anyone?' %></h4>
-		<%= f.label 'Fresh Tomatoes' %> <%= f.select :tomatoes, options_for_select([["-Select-", ""], ["Normal","T"], ["Extra","X T"]], :selected => @burger.tomatoes ) %>
+		<%= f.label 'Fresh Tomatoes' %> <%= f.select :tomatoes, options_for_select([["-Select-", nil], ["Normal","T"], ["Extra","X T"]], :selected => @burger.tomatoes ) %>
 	</p>
 
 	<p>
@@ -106,7 +106,7 @@
 		<%= f.label(:spread, "Extra Spread") %>
 		<%= f.radio_button(:spread, 'S') %>
 		<%= f.label(:spread, "Normal Spread") %>
-		<%= f.radio_button(:spread, '') %>
+		<%= f.radio_button(:spread, nil) %>
 		<%= f.label(:spread, "No Spread") %>
 	</p>
 
