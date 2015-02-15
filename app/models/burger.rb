@@ -16,7 +16,7 @@ class Burger < ActiveRecord::Base
     @code = []
 
     #Count Onion Options. Push Onions @line-143. Need to count onions here in case Anial style takes GR
-    onions = ["#{self.onion1}","#{self.onion2}","#{self.onion3}","#{self.onion4}"]
+    onions = %W(#{self.onion1} #{self.onion2} #{self.onion3} #{self.onion4})
     raw = 0
     chop = 0
     whgr = 0
@@ -195,7 +195,47 @@ class Burger < ActiveRecord::Base
 
   def all_condiments
     condiments_holder = %W(#{mustard} #{ketchup} #{extrasalt} #{pickles} #{chopchillies})
-    condiments_holder.compact.join ' '
+    condiments_holder.compact * ' '
+  end
+
+  def description
+    translate self.code
+  end
+
+  private
+  def translate(burger_code)
+    burger_code
+      .gsub(/Grill Chz\s/, 'Grilled Cheese ')
+      .gsub(/HAMB\s/, 'Hamburger ')
+      .gsub(/CHB\s/, 'Cheeseburger ')
+      .gsub(/Dbl MEAT\s/, 'Double Meat ')
+      .gsub(/DblDbl\s/, 'Double Double ')
+      .gsub(/\sAnimal\s/, ' Animal Style ')
+      .gsub(/\spro\s/, ' Protein Style ')
+      .gsub(/\sS\s/, ' Spread ')
+      .gsub(/\sL\s/, ' Lettuce ')
+      .gsub(/\sT\s/, ' Tomato ')
+      .gsub(/\sX\s/, ' Extra ')
+      .gsub(/\sXE\s/, ' Extra Everything ')
+      .gsub(/\sWO\s/, ' Without Onion ')
+      .gsub(/\sraw\s/, ' Fresh Whole Onion ')
+      .gsub(/\schop\s/, ' Fresh Chopped Onion ')
+      .gsub(/\sGR\s/, ' Grilled Chopped Onion ')
+      .gsub(/\sWHGR\s/, ' Grilled Whole Onion ')
+      .gsub(/\sCold_cheese\s/, ' Cold Cheese ')
+      .gsub(/\sP\s/, ' Pickles ')
+      .gsub(/\sM\s/, ' Mustard ')
+      .gsub(/\sK\s/, ' Ketchup ')
+      .gsub(/\schillies\s/, ' Chopped Chillies ')
+      .gsub(/\sno_salt\s/, ' No Salt Patties ')
+      .gsub(/\smfd\s/, ' Mustard Fried Patties ')
+      .gsub(/\smd_rare\s/, ' Medium Rare ')
+      .gsub(/\swell\s/, ' Well Done ')
+      .gsub(/\sno_toast\s/, ' Untoasted  Buns ')
+      .gsub(/\s1\/2/, ' Cut in Half ')
   end
 # Burger.load
 end
+
+# Existing bug:
+# 1. four orders of raw whole onions dispaly XE only
