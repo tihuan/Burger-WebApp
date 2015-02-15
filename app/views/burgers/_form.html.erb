@@ -1,126 +1,107 @@
 <%= form_for @burger do |f| %>
+  <% if @burger.errors.any? %>
+    <div id="error_explanation">
+      <h2><font color="DAA520">
+        * <%= pluralize(@burger.errors.count, "Error") %> Prohibited This Burger from Being Saved. Detail Below in Red *
+      </font></h2>
+    <ul>
+    <% @burger.errors.full_messages.each do |msg| %>
+      <li ><font color="#FF4500"><%= msg %></font></li>
+    <% end %>
+    </ul>
+    </div>
+  <% end %>
+  <p>
+    <%= f.check_box :cutinhalf, {}, "1/2", "" %>
+    <%= f.label 'Cut in half?' %>
+    <%= f.check_box :animalstyle, {}, "Animal", "" %>
+    <%= f.label 'Animal Style' %>
+  </p>
+  <p>
+    <h4><%= f.label 'Choose buns here:' %></h4>
+    <%= f.radio_button(:buns,'X toast') %>
+    <%= f.label(:buns, "Extra Toasted") %>
 
-	<% if @burger.errors.any? %>
+    <%= f.radio_button(:buns, " ") %>
+    <%= f.label(:buns, "Original Toasted") %>
 
-	<div id="error_explanation">
-		<h2><font color="DAA520">* <%= pluralize(@burger.errors.count, "Error") %> Prohibited This Burger from Being Saved. Detail Below in Red *</font></h2>
-	<ul>
+    <%= f.radio_button(:buns, 'no_toast') %>
+    <%= f.label(:buns, "Untoasted") %>
 
-	<% @burger.errors.full_messages.each do |msg| %>
-		<li ><font color="#FF4500"><%= msg %></font></li>
-	<% end %>
+    <%= f.radio_button(:buns, 'pro') %>
+    <%= f.label(:buns, "Lettuce") %>
 
-	</ul>
-	</div>
-
-	<% end %>
-
-	<p>
-		<%= f.check_box :cutinhalf, {}, "1/2", "" %>
-		<%= f.label 'Cut in half?' %>
-		<%= f.check_box :animalstyle, {}, "Animal", "" %>
-		<%= f.label 'Animal Style' %>
-	</p>
-
-	<p>
-		<h4><%= f.label 'Choose buns here:' %></h4>
-		<%= f.radio_button(:buns,'X toast') %>
-		<%= f.label(:buns, "Extra Toasted") %>
-
-		<%= f.radio_button(:buns, " ") %>
-		<%= f.label(:buns, "Original Toasted") %>
-
-		<%= f.radio_button(:buns, 'no_toast') %>
-		<%= f.label(:buns, "Untoasted") %>
-
-		<%= f.radio_button(:buns, 'pro') %>
-		<%= f.label(:buns, "Lettuce") %>
-
-		<%= f.radio_button(:buns, 'FLYING DUTCHMAN') %>
-		<%= f.label(:buns, "No Bun") %>
-	</p>
-
-	<p>
-		<h4><%= f.label 'Customize Beef Patties here:' %></h4>
-		<h4><%= f.label 'Cook level:' %></h4>
-		<%= f.radio_button(:cooklevel,'md_rare') %>
-		<%= f.label(:cooklevel, "Medium Rare") %>
-		<%= f.radio_button(:cooklevel, ' ') %>
-		<%= f.label(:cooklevel, "Medium Well") %>
-		<%= f.radio_button(:cooklevel, 'well') %>
-		<%= f.label(:cooklevel, "Well Done") %>
-	</p>
-
-	<p>
-	<h4><%= f.label 'Frying Style:' %></h4>
-		<%= f.radio_button(:frystyle, " ") %>
-		<%= f.label(:frystyle, 'Normal Fry') %>
-		<%= f.radio_button(:frystyle, 'no_salt') %>
-		<%= f.label(:frystyle, 'No Salt') %>
-		<%= f.radio_button(:frystyle, 'mfd') %>
-		<%= f.label(:frystyle, 'Mustard Fry') %>
-		<input type="button" value="uncheck 'em" onclick="for(i=o;i<test.length;i++)test[i].checked=false>"
-	</p>
-
-	<p>
-		<h4><%= f.label 'How Many Beef Patties? (total up to 4 patties per burger):' %></h4>
-		<%= f.label 'Beef' %> <%= f.select :beefcount, options_for_select([["-Select-", "0"], "1", "2", "3", "4"], :selected => @burger.beefcount) %><br>
-	</p>
-
-	<p>
-	<h4><%= f.label 'Cheese Style:' %></h4>
-		<%= f.radio_button(:cheesestyle,'meltcheese') %>
-		<%= f.label(:cheesestyle, 'Melted Cheese') %>
-		<%= f.radio_button(:cheesestyle, 'Cold_cheese') %>
-		<%= f.label(:cheesestyle, 'Cold Cheese') %>
-	</p>
-		
-
-	<p>
-		<h4><%= f.label 'Select Cheese Amount (total up to 4 slices per burger):' %></h4>
-		<%= f.label 'Cheese' %> <%= f.select :cheesecount, options_for_select([["-Select-", "0"], "1", "2", "3", "4"], :selected => @burger.cheesecount ) %><br>
-	</p>
-
-	<p>
-		<h4><%= f.label 'Customize onions here (total up to 4 portions per burger):' %></h4>
-		<%= f.label 'Onion 1' %> <%= f.select :onion1, options_for_select([["-Select-", ""], ["Fresh Whole Onion","O"], ["Fresh Chopped Onion","ChopO"], ["Grilled Whole Onion","WHGR"], ["Grilled Chopped Onion","GR"]], :selected => @burger.onion1 ) %><br>
-		<%= f.label 'Onion 2' %> <%= f.select :onion2, options_for_select([["-Select-", ""], ["Fresh Whole Onion","O"], ["Fresh Chopped Onion","ChopO"], ["Grilled Whole Onion","WHGR"], ["Grilled Chopped Onion","GR"]], :selected => @burger.onion2 ) %><br>
-		<%= f.label 'Onion 3' %> <%= f.select :onion3, options_for_select([["-Select-", ""], ["Fresh Whole Onion","O"], ["Fresh Chopped Onion","ChopO"], ["Grilled Whole Onion","WHGR"], ["Grilled Chopped Onion","GR"]], :selected => @burger.onion3 ) %><br>
-		<%= f.label 'Onion 4' %> <%= f.select :onion4, options_for_select([["-Select-", ""], ["Fresh Whole Onion","O"], ["Fresh Chopped Onion","ChopO"], ["Grilled Whole Onion","WHGR"], ["Grilled Chopped Onion","GR"]], :selected => @burger.onion4 ) %>
-	</p>
-
-
-	<p>
-	<h4><%= f.label 'Add Lettuce Here:' %></h4>
-		<%= f.label 'Fresh Lettuce' %> <%= f.select :lettuce, options_for_select([["-Select-", ""],["Normal","L"], ["Extra","X L"]], :selected => @burger.lettuce ) %>
-	</p>
-
-	<p>
-	<h4><%= f.label 'Tomatoes, anyone?' %></h4>
-		<%= f.label 'Fresh Tomatoes' %> <%= f.select :tomatoes, options_for_select([["-Select-", ""], ["Normal","T"], ["Extra","X T"]], :selected => @burger.tomatoes ) %>
-	</p>
-
-	<p>
-		<h4><%= f.label 'Choose spread here:' %></h4>
-		<%= f.radio_button(:spread,'X S') %>
-		<%= f.label(:spread, "Extra Spread") %>
-		<%= f.radio_button(:spread, 'S') %>
-		<%= f.label(:spread, "Normal Spread") %>
-		<%= f.radio_button(:spread, '') %>
-		<%= f.label(:spread, "No Spread") %>
-	</p>
-
-	<p>
-		<h4><%= f.label 'Choose condiments here:' %></h4>
-		<%= f.check_box :mustard, {}, "M", "" %><%= f.label 'Mustard' %>
-		<%= f.check_box :ketchup, {}, "K", "" %><%= f.label 'Ketchup' %>
-		<%= f.check_box :extrasalt, {}, "X Salt", "" %><%= f.label 'Extra Salt' %>
-		<%= f.check_box :pickles, {}, "P", "" %><%= f.label 'Pickles' %>
-		<%= f.check_box :chopchillies, {}, "chillies", "" %><%= f.label 'Chopped Chillies' %>
-	</p>
-
-	<p>
-		<%= f.submit %>
-	</p>
-
+    <%= f.radio_button(:buns, 'FLYING DUTCHMAN') %>
+    <%= f.label(:buns, "No Bun") %>
+  </p>
+  <p>
+    <h4><%= f.label 'Customize Beef Patties here:' %></h4>
+    <h4><%= f.label 'Cook level:' %></h4>
+    <%= f.radio_button(:cooklevel,'md_rare') %>
+    <%= f.label(:cooklevel, "Medium Rare") %>
+    <%= f.radio_button(:cooklevel, ' ') %>
+    <%= f.label(:cooklevel, "Medium Well") %>
+    <%= f.radio_button(:cooklevel, 'well') %>
+    <%= f.label(:cooklevel, "Well Done") %>
+  </p>
+  <p>
+  <h4><%= f.label 'Frying Style:' %></h4>
+    <%= f.radio_button(:frystyle, " ") %>
+    <%= f.label(:frystyle, 'Normal Fry') %>
+    <%= f.radio_button(:frystyle, 'no_salt') %>
+    <%= f.label(:frystyle, 'No Salt') %>
+    <%= f.radio_button(:frystyle, 'mfd') %>
+    <%= f.label(:frystyle, 'Mustard Fry') %>
+    <input type="button" value="uncheck 'em" onclick="for(i=o;i<test.length;i++)test[i].checked=false>"
+  </p>
+  <p>
+    <h4><%= f.label 'How Many Beef Patties? (total up to 4 patties per burger):' %></h4>
+    <%= f.label 'Beef' %> <%= f.select :beefcount, options_for_select([["-Select-", "0"], "1", "2", "3", "4"], :selected => @burger.beefcount) %><br>
+  </p>
+  <p>
+  <h4><%= f.label 'Cheese Style:' %></h4>
+    <%= f.radio_button(:cheesestyle,'meltcheese') %>
+    <%= f.label(:cheesestyle, 'Melted Cheese') %>
+    <%= f.radio_button(:cheesestyle, 'Cold_cheese') %>
+    <%= f.label(:cheesestyle, 'Cold Cheese') %>
+  </p>
+  <p>
+    <h4><%= f.label 'Select Cheese Amount (total up to 4 slices per burger):' %></h4>
+    <%= f.label 'Cheese' %> <%= f.select :cheesecount, options_for_select([["-Select-", "0"], "1", "2", "3", "4"], :selected => @burger.cheesecount ) %><br>
+  </p>
+  <p>
+    <h4><%= f.label 'Customize onions here (total up to 4 portions per burger):' %></h4>
+    <%= f.label 'Onion 1' %> <%= f.select :onion1, options_for_select([["-Select-", ""], ["Fresh Whole Onion","O"], ["Fresh Chopped Onion","ChopO"], ["Grilled Whole Onion","WHGR"], ["Grilled Chopped Onion","GR"]], :selected => @burger.onion1 ) %><br>
+    <%= f.label 'Onion 2' %> <%= f.select :onion2, options_for_select([["-Select-", ""], ["Fresh Whole Onion","O"], ["Fresh Chopped Onion","ChopO"], ["Grilled Whole Onion","WHGR"], ["Grilled Chopped Onion","GR"]], :selected => @burger.onion2 ) %><br>
+    <%= f.label 'Onion 3' %> <%= f.select :onion3, options_for_select([["-Select-", ""], ["Fresh Whole Onion","O"], ["Fresh Chopped Onion","ChopO"], ["Grilled Whole Onion","WHGR"], ["Grilled Chopped Onion","GR"]], :selected => @burger.onion3 ) %><br>
+    <%= f.label 'Onion 4' %> <%= f.select :onion4, options_for_select([["-Select-", ""], ["Fresh Whole Onion","O"], ["Fresh Chopped Onion","ChopO"], ["Grilled Whole Onion","WHGR"], ["Grilled Chopped Onion","GR"]], :selected => @burger.onion4 ) %>
+  </p>
+  <p>
+  <h4><%= f.label 'Add Lettuce Here:' %></h4>
+    <%= f.label 'Fresh Lettuce' %> <%= f.select :lettuce, options_for_select([["-Select-", ""],["Normal","L"], ["Extra","X L"]], :selected => @burger.lettuce ) %>
+  </p>
+  <p>
+  <h4><%= f.label 'Tomatoes, anyone?' %></h4>
+    <%= f.label 'Fresh Tomatoes' %> <%= f.select :tomatoes, options_for_select([["-Select-", ""], ["Normal","T"], ["Extra","X T"]], :selected => @burger.tomatoes ) %>
+  </p>
+  <p>
+    <h4><%= f.label 'Choose spread here:' %></h4>
+    <%= f.radio_button(:spread,'X S') %>
+    <%= f.label(:spread, "Extra Spread") %>
+    <%= f.radio_button(:spread, 'S') %>
+    <%= f.label(:spread, "Normal Spread") %>
+    <%= f.radio_button(:spread, '') %>
+    <%= f.label(:spread, "No Spread") %>
+  </p>
+  <p>
+    <h4><%= f.label 'Choose condiments here:' %></h4>
+    <%= f.check_box :mustard, {}, "M", "" %><%= f.label 'Mustard' %>
+    <%= f.check_box :ketchup, {}, "K", "" %><%= f.label 'Ketchup' %>
+    <%= f.check_box :extrasalt, {}, "X Salt", "" %><%= f.label 'Extra Salt' %>
+    <%= f.check_box :pickles, {}, "P", "" %><%= f.label 'Pickles' %>
+    <%= f.check_box :chopchillies, {}, "chillies", "" %><%= f.label 'Chopped Chillies' %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
 <% end %>

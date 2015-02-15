@@ -1,91 +1,62 @@
+<h2>In-N-Out Burger Code</h2>
+
 <div class="container">
-	<div class="row">
-		<div class="col-sm-12">
-			<p>
-				<strong>Burger ID:</strong>
-				<%= @burger.id %>
-			</p>
-
-			<% # @burger.countspecialrequests %>
-			<p>
-				<strong>Special Request:</strong>
-				<%= @burger.specialrequests %>
-			</p>
-
-			<p>
-				<strong>Buns:</strong>
-				<%= @burger.buns %>
-			</p>
-
-			<p>
-				<strong>Cook Request:</strong>
-				<%= @burger.cooklevel %>
-			</p>
-
-			<% # @burger.countpatties %>
-			<p>
-				<strong>Patties:</strong>
-				<%= @burger.patties %>
-			</p>
-
-			<% # @burger.countcheese %>
-			<p>
-				<strong>Cheese:</strong>
-				<%= @burger.cheese %>
-			</p>
-
-			<% # @burger.countonions %>
-			<p>
-				<strong>Onions:</strong>
-				<%= @burger.onions %>
-			</p>
-
-			<p>
-				<strong>Onion Options:</strong>
-				<%= @burger.onion1 %>
-				<%= @burger.onion2 %>
-				<%= @burger.onion3 %>
-				<%= @burger.onion4 %>
-			</p>
-
-			<% # @burger.counttomatoes %>
-			<p>
-				<strong>Tomatoes:</strong>
-				<%= @burger.tomatoes %>
-			</p>
-
-			<% # @burger.countlettuce %>
-			<p>
-				<strong>Lettuce:</strong>
-				<%= @burger.lettuce %>
-			</p>
-
-			<p>
-				<strong>Spread:</strong>
-				<%= @burger.spread %>
-			</p>
-
-			<% # @burger.countcondiments %>
-			<p>
-				<strong>Condiments:</strong>
-				<%= @burger.condiments %>
-			</p>
-
-			<% # @burger.countresult %>
-			<p>
-				<strong>Result:</strong>
-				<%= @burger.result %>
-			</p>
-
-			<% @burger.countcode %>
-			<p>
-				<strong>In-N-Out Code for your order:</strong>
-				<h3 class="btn-danger"><%= @burger.code %></h3>
-			</p>
+  <div class="row">
+      <p>
+        <strong>Burger ID:</strong>
+        <%= @burger.id %>
+      </p>
+      <p>
+        <strong>Special Request:</strong>
+        <%= @burger.specialrequests %>
+      </p>
+      <p>
+        <strong>Buns:</strong>
+        <%= @burger.buns %>
+      </p>
+      <p>
+        <strong>Cook Request:</strong>
+        <%= @burger.cooklevel %>
+      </p>
+      <p>
+        <strong>Patties:</strong>
+        <%= @burger.beefcount %>
+      </p>
+      <p>
+        <strong>Cheese:</strong>
+        <%= @burger.cheesecount %>
+      </p>
+      <p>
+        <strong>Onion Options:</strong>
+        <%= @burger.onion1 %>
+        <%= @burger.onion2 %>
+        <%= @burger.onion3 %>
+        <%= @burger.onion4 %>
+      </p>
+      <p>
+        <strong>Tomatoes:</strong>
+        <%= @burger.tomatoes %>
+      </p>
+      <p>
+        <strong>Lettuce:</strong>
+        <%= @burger.lettuce %>
+      </p>
+      <p>
+        <strong>Spread:</strong>
+        <%= @burger.spread %>
+      </p>
+      <p>
+        <strong>Condiments:</strong>
+        <%= @burger.all_condiments %>
+      </p>
+      <% @burger.countcode %>
+      <p>
+        <strong>In-N-Out Code for your order:</strong>
+        <h3 class="btn-danger"><%= @burger.code %></h3>
+      </p>
 
 
-			<%= link_to 'Back', burgers_path %>
-			<%= link_to 'Edit', edit_burger_path(@burger) %>
-		</div>
-	</div>
+      <%= link_to 'Back', burgers_path %>
+      <%= link_to 'Edit', edit_burger_path(@burger) %>
+  </div>
 </div>
