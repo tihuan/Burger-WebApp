@@ -211,7 +211,7 @@ class Burger < ActiveRecord::Base
       .gsub(/Dbl MEAT\s/, 'Double Meat ')
       .gsub(/DblDbl\s/, 'Double Double ')
       .gsub(/\sAnimal\s/, ' Animal Style ')
-      .gsub(/\spro\s/, ' Protein Style ')
+      .gsub(/\spro/, ' Protein Style ')
       .gsub(/\sS\s/, ' Spread ')
       .gsub(/\sL\s/, ' Lettuce ')
       .gsub(/\sT\s/, ' Tomato ')
